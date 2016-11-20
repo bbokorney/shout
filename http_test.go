@@ -22,6 +22,7 @@ func TestHttpBadFormat(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusBadRequest, res.StatusCode)
+	mockShouter.AssertExpectations(t)
 }
 
 func TestHttpInvalidJson(t *testing.T) {
@@ -35,6 +36,7 @@ func TestHttpInvalidJson(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusBadRequest, res.StatusCode)
+	mockShouter.AssertExpectations(t)
 }
 
 func TestHttpInvalidMethod(t *testing.T) {
@@ -46,6 +48,7 @@ func TestHttpInvalidMethod(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusMethodNotAllowed, res.StatusCode)
+	mockShouter.AssertExpectations(t)
 }
 
 func TestHttpNoShoutError(t *testing.T) {
@@ -68,6 +71,7 @@ func TestHttpNoShoutError(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusAccepted, res.StatusCode)
+	mockShouter.AssertExpectations(t)
 }
 func TestHttpShoutError(t *testing.T) {
 	mockShouter := new(mocks.Shouter)
@@ -89,6 +93,7 @@ func TestHttpShoutError(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusBadRequest, res.StatusCode)
+	mockShouter.AssertExpectations(t)
 }
 
 func TestValidate(t *testing.T) {
