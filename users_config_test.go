@@ -9,21 +9,21 @@ import (
 
 var testDataDir = "testdata"
 
-type testCase struct {
+type userConfigTestCase struct {
 	filename         string
 	exepctedMapping  map[string]string
 	expectedErrorNil bool
 }
 
 func TestUserConfig(t *testing.T) {
-	testCases := []testCase{
-		testCase{"does-not-exist.yml", nil, false},
-		testCase{"single-user.yml", map[string]string{
+	testCases := []userConfigTestCase{
+		userConfigTestCase{"does-not-exist.yml", nil, false},
+		userConfigTestCase{"single-user.yml", map[string]string{
 			"user_id": "username"}, true},
-		testCase{"multiple-users.yml", map[string]string{
+		userConfigTestCase{"multiple-users.yml", map[string]string{
 			"alice@example.com": "alice",
 			"Robert Johnson":    "robby"}, true},
-		testCase{"not-yaml.txt", map[string]string{"who": "cares"}, false},
+		userConfigTestCase{"not-yaml.txt", map[string]string{"who": "cares"}, false},
 	}
 
 	for _, tc := range testCases {
