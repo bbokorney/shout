@@ -8,7 +8,11 @@ import (
 func main() {
 	log.Println("Starting up...")
 
-	http.HandleFunc("/shout", NewShoutHandler(NewShouter()))
+	users := NewUsers(make(map[string]string))
+	shouter := NewShouter(users)
+	shoutHandler := NewShoutHandler(shouter)
+
+	http.HandleFunc("/shout", shoutHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
