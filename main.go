@@ -8,7 +8,7 @@ import (
 func main() {
 	log.Println("Starting up...")
 
-	http.HandleFunc("/shout", shout)
+	http.HandleFunc("/shout", NewShoutHandler(NewShouter()))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
