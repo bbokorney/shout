@@ -6,17 +6,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type usersTestCase struct {
-	userMapping      map[string]string
-	userID           string
-	expectedUsername string
-	expectedErrorNil bool
-}
-
 func TestUsers(t *testing.T) {
-	testCases := []usersTestCase{
-		usersTestCase{map[string]string{"user_id": "username"}, "user_id", "username", true},
-		usersTestCase{map[string]string{}, "user_id", "username", false},
+
+	type testCase struct {
+		userMapping      map[string]string
+		userID           string
+		expectedUsername string
+		expectedErrorNil bool
+	}
+
+	testCases := []testCase{
+		testCase{map[string]string{"user_id": "username"}, "user_id", "username", true},
+		testCase{map[string]string{}, "user_id", "username", false},
 	}
 
 	for _, tc := range testCases {
