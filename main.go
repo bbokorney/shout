@@ -9,7 +9,8 @@ func main() {
 	log.Println("Starting up...")
 
 	users := NewUsers(make(map[string]string))
-	shouter := NewShouter(users)
+	templates := NewTemplates()
+	shouter := NewShouter(users, templates)
 	shoutHandler := NewShoutHandler(shouter)
 
 	http.HandleFunc("/shout", shoutHandler)

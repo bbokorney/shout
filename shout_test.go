@@ -1,41 +1,61 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
+	"github.com/bbokorney/shout/mocks"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestShout(t *testing.T) {
-	type testCase struct {
-		recipients       []string
-		templateName     string
-		data             map[string]string
-		users            Users
-		expectedErrorNil bool
-	}
+func TestUsersExist(t *testing.T) {
+	users := NewUsers(map[string]string{"user_id": "username"})
+	mockTemplates := new(mocks.Templates)
 
-	testCases := []testCase{
-		testCase{
-			recipients:       []string{"user_id"},
-			templateName:     "template-name",
-			data:             nil,
-			users:            NewUsers(map[string]string{"user_id": "username"}),
-			expectedErrorNil: false,
-		},
-		testCase{
-			recipients:       []string{"does_not_exist"},
-			templateName:     "template-name",
-			data:             nil,
-			users:            NewUsers(map[string]string{"user_id": "username"}),
-			expectedErrorNil: true,
-		},
-	}
+	recipients := []string{"user_id"}
+	templateName := "template-name"
+	data := make(map[string]string)
 
-	for _, tc := range testCases {
-		shouter := NewShouter(tc.users)
-		err := shouter.Send(tc.recipients, tc.templateName, tc.data)
+	mockTemplates.On("Render", templateName, data).Return("", nil)
 
-		assert.Equal(t, tc.expectedErrorNil, err != nil)
-	}
+	shouter := NewShouter(users, mockTemplates)
+
+	err := shouter.Send(recipients, templateName, data)
+
+	assert.Nil(t, err)
+	mockTemplates.AssertExpectations(t)
+}
+
+func TestUsersNotExist(t *testing.T) {
+	users := NewUsers(map[string]string{"user_id": "username"})
+	mockTemplates := new(mocks.Templates)
+
+	recipients := []string{"not_a_user"}
+	templateName := "template-name"
+	data := make(map[string]string)
+
+	shouter := NewShouter(users, mockTemplates)
+
+	err := shouter.Send(recipients, templateName, data)
+
+	assert.NotNil(t, err)
+	mockTemplates.AssertExpectations(t)
+}
+
+func TestRenderTemplateError(t *testing.T) {
+	users := NewUsers(map[string]string{"user_id": "username"})
+	mockTemplates := new(mocks.Templates)
+
+	recipients := []string{"user_id"}
+	templateName := "template-name"
+	data := make(map[string]string)
+
+	mockTemplates.On("Render", templateName, data).Return("", fmt.Errorf("Expected error"))
+
+	shouter := NewShouter(users, mockTemplates)
+
+	err := shouter.Send(recipients, templateName, data)
+
+	assert.NotNil(t, err)
+	mockTemplates.AssertExpectations(t)
 }
