@@ -8,16 +8,18 @@ type Shouter interface {
 }
 
 // NewShouter returns a new Shouter
-func NewShouter(users Users, templates Templates) Shouter {
+func NewShouter(users Users, templates Templates, notifications Notifications) Shouter {
 	return shouter{
-		users:     users,
-		templates: templates,
+		users:         users,
+		templates:     templates,
+		notifications: notifications,
 	}
 }
 
 type shouter struct {
-	users     Users
-	templates Templates
+	users         Users
+	templates     Templates
+	notifications Notifications
 }
 
 // Send sends the notification(s)
@@ -39,6 +41,13 @@ func (s shouter) Send(recipients []string, templateName string, data map[string]
 	}
 
 	fmt.Println("Rendered message: ", message)
+
+	// send the message to the recipients
+	for _, username := range usernames {
+		if err := s.notifications.Send(username, message); err != nil {
+			return fmt.Errorf("Error message %s to %s: %s", message, username, err)
+		}
+	}
 
 	return nil
 }

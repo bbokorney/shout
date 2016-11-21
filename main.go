@@ -10,7 +10,8 @@ func main() {
 
 	users := NewUsers(make(map[string]string))
 	templates := NewTemplates()
-	shouter := NewShouter(users, templates)
+	notifications := NewNotifications()
+	shouter := NewShouter(users, templates, notifications)
 	shoutHandler := NewShoutHandler(shouter)
 
 	http.HandleFunc("/shout", shoutHandler)
