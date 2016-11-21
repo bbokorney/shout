@@ -1,0 +1,1 @@
+{{index . "owner"}} has a dog named {{index . "dog"}}.

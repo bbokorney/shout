@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"html/template"
+	"text/template"
 )
 
 // Templates handles rendering message templates
@@ -12,19 +12,19 @@ type Templates interface {
 }
 
 // NewTemplates creates a new Templates
-func NewTemplates(templateMapping map[string]*template.Template) Templates {
+func NewTemplates(tmpls *template.Template) Templates {
 	return templates{
-		templateMapping: templateMapping,
+		tmpls: tmpls,
 	}
 }
 
 type templates struct {
-	templateMapping map[string]*template.Template
+	tmpls *template.Template
 }
 
 func (t templates) Render(templateName string, data map[string]string) (string, error) {
-	tmpl, exists := t.templateMapping[templateName]
-	if !exists {
+	tmpl := t.tmpls.Lookup(templateName)
+	if tmpl == nil {
 		return "", fmt.Errorf("Template %s does not exist", templateName)
 	}
 

@@ -1,24 +1,23 @@
 package main
 
 import (
-	"html/template"
 	"testing"
+	"text/template"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestTemplateNotExist(t *testing.T) {
-	templates := NewTemplates(make(map[string]*template.Template))
+	tmpl := template.Must(template.New("template").Parse(`Value of key is "{{index . "key"}}"`))
+	templates := NewTemplates(tmpl)
 	_, err := templates.Render("not a template", nil)
 	assert.NotNil(t, err)
 }
 
 func TestTemplateRender(t *testing.T) {
-	tmpl := template.Must(template.New("tmpl").Parse(`Value of key is "{{index . "key"}}"`))
+	tmpl := template.Must(template.New("template").Parse(`Value of key is "{{index . "key"}}"`))
 	data := map[string]string{"key": "value"}
-	tmplMap := make(map[string]*template.Template)
-	tmplMap["template"] = tmpl
-	templates := NewTemplates(tmplMap)
+	templates := NewTemplates(tmpl)
 
 	msg, err := templates.Render("template", data)
 

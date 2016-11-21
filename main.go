@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 )
@@ -9,8 +8,13 @@ import (
 func main() {
 	log.Println("Starting up...")
 
+	parsedTemplates, err := ParseTemplates("templates")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	users := NewUsers(make(map[string]string))
-	templates := NewTemplates(make(map[string]*template.Template))
+	templates := NewTemplates(parsedTemplates)
 	notifications := NewNotifications()
 	shouter := NewShouter(users, templates, notifications)
 	shoutHandler := NewShoutHandler(shouter)
