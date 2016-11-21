@@ -15,7 +15,7 @@ func main() {
 
 	users := NewUsers(make(map[string]string))
 	templates := NewTemplates(parsedTemplates)
-	notifications := NewNotifications()
+	notifications := NewNotifications("http://fake-url")
 	shouter := NewShouter(users, templates, notifications)
 	shoutHandler := NewShoutHandler(shouter)
 
