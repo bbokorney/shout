@@ -5,9 +5,9 @@ deploy:
   api_key:
     secure: u109V5mhjVzv99opIKeByPNOxiy/vFA8qFQEl1ezVdziT8N+7S8Vpz3g/Jc3y8gUsZBBJKzO3XSNhlOxEQNg2ceHs6yW3qvkEtgkNEJ4Afma01Hi7KREK5VkMw4WQAzivZfT2TIyWk62MhhLwlRL0xPwNykyr34N4UOqAfD/oYVo/DTbHuWaFilQrVRbR47SrIRXCkSpc9Q/MepUyDD0BBPBqsGoDm81TSpw5NCurj9K1SRUAbxFwMo2SkmTvnM8uNrKp/4/l4IgHkSO+vupq0X+pAb0mPv7Fbktf6iYix0KXI8S0+9LGJxLANtA1VVHlhQ3j9u6xfIQw9lrfsUqow9yICk4Ft4P+p4cFp4dSWQOo/MP6vJpHnLuR3QjrIrFJXuupA0YGJk5BfUGCg4VAJsgjeDaNMBawRwnN1BaOjLR2irRAh/0yKpAVCUlY4zTRBg/JAvCNtt2PacwwI/JzCuZkVZcPoNq9/LLSFYYPoTb0Y8/++3iMQrqIjqkkcMP/k8cCnsa1uEiL7tNfcRSZ7F7IXl3qzLLGW+3xkLjkNxc9cb4jEjcN97Cgt8qML9yq/ksmyd0vx+iFaN2T5ENL17BvkpB/uG9kCbygL+w22/iAK01lFk5lBtztAO3jxvgWJ9/zy3WoN3rG6sy5LlwPkqEeK++lgM6vIRMqCgHMq0=
   file:
-    - shout-darwin-amd64
-    - shout-linux-amd64
-    - shout-windows-amd64
+    - build/shout-darwin-amd64
+    - build/shout-linux-amd64
+    - build/shout-windows-amd64
   skip_cleanup: true
   on:
     tags: true
