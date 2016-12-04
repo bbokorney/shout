@@ -1,5 +1,5 @@
 users:
 - id: alice@example.com
-  username: alice
+  username: "@alice"
 - id: Robert Johnson
-  username: robby
+  username: "@robby"

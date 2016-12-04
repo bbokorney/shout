@@ -19,10 +19,10 @@ func TestUserConfig(t *testing.T) {
 	testCases := []testCase{
 		testCase{"does-not-exist.yml", nil, false},
 		testCase{"single-user.yml", map[string]string{
-			"user_id": "username"}, true},
+			"user_id": "@username"}, true},
 		testCase{"multiple-users.yml", map[string]string{
-			"alice@example.com": "alice",
-			"Robert Johnson":    "robby"}, true},
+			"alice@example.com": "@alice",
+			"Robert Johnson":    "@robby"}, true},
 		testCase{"not-yaml.txt", map[string]string{"who": "cares"}, false},
 	}
 

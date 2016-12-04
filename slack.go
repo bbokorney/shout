@@ -27,7 +27,7 @@ type notifications struct {
 
 func (n notifications) Send(recipient, message string) error {
 	msgBody := slackMessageBody{
-		Channel: fmt.Sprintf("@%s", recipient),
+		Channel: recipient,
 		Text:    message,
 	}
 
