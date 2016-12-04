@@ -9,9 +9,9 @@ import (
 	"github.com/urfave/cli"
 )
 
-const (
-	defaultTemplateDir     = "templates"
-	defaultUsersConfigFile = "users.yml"
+var (
+	version string
+	hash    string
 )
 
 func main() {
@@ -20,6 +20,7 @@ func main() {
 	app.Name = "shout"
 	app.Usage = "Be heard"
 	app.UsageText = "shout [options]"
+	app.Version = fmt.Sprintf("%s (commit %s)", version, hash)
 	app.Authors = []cli.Author{
 		cli.Author{
 			Name:  "Baker Bokorney",
