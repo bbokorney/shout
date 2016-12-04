@@ -24,7 +24,7 @@ func TestIntegration(t *testing.T) {
 		t.Skip()
 	}
 
-	slackURL := os.Getenv("SLACK_URL")
+	slackURL := os.Getenv("SHOUT_SLACK_URL")
 	assert.NotEmpty(t, slackURL)
 
 	notifications := NewNotifications(slackURL)
